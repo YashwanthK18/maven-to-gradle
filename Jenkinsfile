@@ -43,13 +43,6 @@ pipeline {
             }
         }
 
-        // STEP 5: Run Application (optional)
-        stage('Run Application') {
-            steps {
-                sh 'gradle run'
-            }
-        }
-    }
 
     post {
         success {
