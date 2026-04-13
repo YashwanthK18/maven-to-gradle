@@ -1,7 +1,5 @@
-plugins {
-    id 'java'
-    id 'application'
-}
+apply plugin: 'java'
+apply plugin: 'application'
 
 group = 'com.example1'
 version = '1.0-SNAPSHOT'
@@ -16,9 +14,8 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'junit:junit:4.13.2'
+    testCompile 'junit:junit:4.13.2'
 }
 
-application {
-    mainClassName = 'com.example1.Main'
-}
+// Required for 'gradle run'
+mainClassName = 'com.example1.Main'
