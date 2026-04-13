@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven'     // Name configured in Jenkins
-        gradle 'Gradle'   // Name configured in Jenkins
-        jdk 'JDK'         // Name configured in Jenkins
+        maven 'Maven'
+        gradle 'Gradle'
+        jdk 'JDK'
     }
 
     stages {
@@ -15,38 +15,38 @@ pipeline {
             }
         }
 
-        // STEP 1: Build using Maven (before conversion)
+        // OPTIONAL: only if you still want Maven build
         stage('Build with Maven') {
             steps {
                 sh 'mvn clean install'
             }
         }
 
-        // STEP 2: Convert Maven → Gradle
-        stage('Convert to Gradle') {
-            steps {
-                sh 'gradle init --type pom'
-            }
-        }
-
-        // STEP 3: Build using Gradle
+        // Build using Gradle
         stage('Build with Gradle') {
             steps {
-                sh 'gradle build'
+                sh 'gradle clean build'
             }
         }
 
-        // STEP 4: Run Tests
+        // Run Tests
         stage('Test') {
             steps {
                 sh 'gradle test'
             }
         }
 
+        // Run Application (now it will work ✅)
+        stage('Run Application') {
+            steps {
+                sh 'gradle run'
+            }
+        }
+    }
 
     post {
         success {
-            echo 'Maven to Gradle pipeline executed successfully!'
+            echo 'Pipeline executed successfully!'
         }
         failure {
             echo 'Pipeline failed!'
